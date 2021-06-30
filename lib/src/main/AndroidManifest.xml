@@ -163,6 +163,13 @@
             android:name="com.huawei.hms.client.appid"
             android:value="@string/lib_umeng_push_huawei_app_id" />
 
+        <meta-data
+            android:name="com.vivo.push.api_key"
+            android:value="@string/lib_umeng_push_vivo_app_key" />
+        <meta-data
+            android:name="com.vivo.push.app_id"
+            android:value="@string/lib_umeng_push_vivo_app_id" />
+
     </application>
 
 </manifest>

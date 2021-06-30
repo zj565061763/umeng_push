@@ -8,6 +8,7 @@ import android.text.TextUtils;
 import org.android.agoo.huawei.HuaWeiRegister;
 import org.android.agoo.mezu.MeizuRegister;
 import org.android.agoo.oppo.OppoRegister;
+import org.android.agoo.vivo.VivoRegister;
 import org.android.agoo.xiaomi.MiPushRegistar;
 
 public class LibUmengPush {
@@ -38,6 +39,12 @@ public class LibUmengPush {
         final String oppoAppSecret = resources.getString(R.string.lib_umeng_push_oppo_app_secret);
         if (!TextUtils.isEmpty(oppoAppKey) && !TextUtils.isEmpty(oppoAppSecret)) {
             OppoRegister.register(context, oppoAppKey, oppoAppSecret);
+        }
+
+        final String vivoAppId = resources.getString(R.string.lib_umeng_push_vivo_app_id);
+        final String vivoAppKey = resources.getString(R.string.lib_umeng_push_vivo_app_key);
+        if (!TextUtils.isEmpty(vivoAppId) && !TextUtils.isEmpty(vivoAppKey)) {
+            VivoRegister.register(context);
         }
     }
 }

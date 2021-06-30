@@ -21,4 +21,10 @@
     <!-- （OPPO）appsecret -->
     <string name="lib_umeng_push_oppo_app_secret"></string>
 
+
+    <!-- （VIVO）appid -->
+    <string name="lib_umeng_push_vivo_app_id"></string>
+    <!-- （VIVO）appkey -->
+    <string name="lib_umeng_push_vivo_app_key"></string>
+
 </resources>
