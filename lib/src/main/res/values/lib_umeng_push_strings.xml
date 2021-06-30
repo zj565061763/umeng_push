@@ -5,4 +5,8 @@
     <!-- （小米）appkey -->
     <string name="lib_umeng_push_xiaomi_app_key"></string>
 
+
+    <!-- （华为）appid=XXXXXX -->
+    <string name="lib_umeng_push_huawei_app_id"></string>
+
 </resources>
