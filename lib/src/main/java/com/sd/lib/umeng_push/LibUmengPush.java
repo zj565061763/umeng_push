@@ -5,6 +5,10 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.text.TextUtils;
 
+import com.umeng.commonsdk.utils.UMUtils;
+import com.umeng.message.IUmengRegisterCallback;
+import com.umeng.message.PushAgent;
+
 import org.android.agoo.huawei.HuaWeiRegister;
 import org.android.agoo.mezu.MeizuRegister;
 import org.android.agoo.oppo.OppoRegister;
@@ -15,7 +19,20 @@ public class LibUmengPush {
     private LibUmengPush() {
     }
 
-    public static void init(Context context) {
+    public static void preRegister(Context context) {
+        if (!UMUtils.isMainProgress(context)) {
+            PushAgent.getInstance(context).register(null);
+        }
+    }
+
+    public static void register(Context context, IUmengRegisterCallback callback) {
+        PushAgent.getInstance(context).register(callback);
+    }
+
+    /**
+     * 初始化第三方平台推送通道
+     */
+    public static void initThirdParty(Context context) {
         final Resources resources = context.getResources();
 
         final String huaweiAppId = resources.getString(R.string.lib_umeng_push_huawei_app_id);

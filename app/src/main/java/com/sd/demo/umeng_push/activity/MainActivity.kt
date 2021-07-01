@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.sd.demo.umeng_push.R
+import com.sd.lib.umeng_push.LibUmengPush
 import com.umeng.commonsdk.UMConfigure
 import com.umeng.message.IUmengRegisterCallback
 import com.umeng.message.PushAgent
@@ -36,7 +37,8 @@ class MainActivity : AppCompatActivity() {
             this.notificationClickHandler = _notificationClickHandler
             this.messageHandler = _umengMessageHandler
         }
-        pushAgent.register(object : IUmengRegisterCallback {
+
+        LibUmengPush.register(this, object : IUmengRegisterCallback {
             override fun onSuccess(deviceToken: String) {
                 Log.i(TAG, "onSuccess ${deviceToken}")
             }
