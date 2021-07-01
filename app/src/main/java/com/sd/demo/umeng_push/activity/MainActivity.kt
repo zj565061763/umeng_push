@@ -24,9 +24,11 @@ class MainActivity : AppCompatActivity() {
 
     private fun initUmengSDK() {
         UMConfigure.init(
-            this, "60d28f6326a57f101832de50", "Umeng",
-            UMConfigure.DEVICE_TYPE_PHONE,
-            "be29515ba1416294e6103410bb1eaad3"
+                this,
+                "60d28f6326a57f101832de50",
+                "Umeng",
+                UMConfigure.DEVICE_TYPE_PHONE,
+                "be29515ba1416294e6103410bb1eaad3"
         )
 
         val pushAgent = PushAgent.getInstance(this)
