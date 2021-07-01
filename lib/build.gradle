@@ -1,14 +1,20 @@
 plugins {
     id 'com.android.library'
+    id 'maven-publish'
 }
+
+def libGroupId = "com.sd.lib.umeng"
+def libArtifactId = "umeng_push"
+def libVersionCode = 20210701
+def libVersionName = "6.3.3-v1"
 
 android {
     compileSdkVersion 30
     defaultConfig {
         minSdkVersion 19
         targetSdkVersion 30
-        versionCode 1
-        versionName "1.0"
+        versionCode libVersionCode
+        versionName libVersionName
     }
 
     buildTypes {
@@ -58,4 +64,26 @@ dependencies {
     //vivo厂商通道
     api 'com.umeng.umsdk:vivo-umengaccs:1.1.4'
     api 'com.umeng.umsdk:vivo-push:3.0.0'
+}
+
+task generateSourcesJar(type: Jar) {
+    from android.sourceSets.main.java.srcDirs
+    classifier 'sources'
+}
+
+afterEvaluate {
+    publishing {
+        publications {
+            release(MavenPublication) {
+                from components.release
+
+                groupId = libGroupId
+                artifactId = libArtifactId
+                version = libVersionName
+
+                // 上传源码
+                artifact generateSourcesJar
+            }
+        }
+    }
 }
