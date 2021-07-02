@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">umeng_push</string>
+
+    <!-- 友盟AppKey -->
+    <string name="lib_umeng_common_app_key">60d28f6326a57f101832de50</string>
+    <!-- 友盟推送MessageSecret -->
+    <string name="lib_umeng_common_push_mssage_secret">be29515ba1416294e6103410bb1eaad3</string>
+
 </resources>
