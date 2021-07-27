@@ -17,6 +17,8 @@ public class LibUmengPush {
     }
 
     public static void registerMainProcess(Context context, IUmengRegisterCallback callback) {
-        PushAgent.getInstance(context).register(callback);
+        if (UMUtils.isMainProgress(context)) {
+            PushAgent.getInstance(context).register(callback);
+        }
     }
 }
