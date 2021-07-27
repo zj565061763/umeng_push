@@ -5,8 +5,8 @@ plugins {
 
 def libGroupId = "com.sd.lib.umeng"
 def libArtifactId = "umeng_push"
-def libVersionCode = 20210702
-def libVersionName = "6.3.3-v02"
+def libVersionCode = 20210727
+def libVersionName = "6.3.3-v03"
 
 android {
     compileSdkVersion 30
