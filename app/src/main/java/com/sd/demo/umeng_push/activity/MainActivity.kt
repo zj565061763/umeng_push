@@ -38,7 +38,7 @@ class MainActivity : AppCompatActivity() {
                 .setNegativeButton("拒绝", DialogInterface.OnClickListener { dialog, which ->
                     finish()
                 }).setPositiveButton("同意", DialogInterface.OnClickListener { dialog, which ->
-                    FVersionCodeChecker(this).check(App.USER_AGREEMENT)?.commit()
+                    App.acceptAgreement(this)
                     initUmengSDK()
                 }).create()
 

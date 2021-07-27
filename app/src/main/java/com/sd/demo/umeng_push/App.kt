@@ -47,5 +47,12 @@ class App : Application() {
 
             return result.isUpgraded && result.oldVersion == 0L
         }
+
+        /**
+         * 接受用户协议
+         */
+        fun acceptAgreement(context: Context) {
+            FVersionCodeChecker(context).check(App.USER_AGREEMENT)?.commit()
+        }
     }
 }
