@@ -10,7 +10,6 @@ import com.sd.demo.umeng_push.App
 import com.sd.demo.umeng_push.R
 import com.sd.lib.umeng_common.LibUmengCommon
 import com.sd.lib.umeng_push.LibUmengPush
-import com.sd.lib.utils.extend.FVersionCodeChecker
 import com.umeng.message.IUmengRegisterCallback
 import com.umeng.message.PushAgent
 import com.umeng.message.UmengMessageHandler
