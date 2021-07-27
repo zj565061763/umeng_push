@@ -1,12 +1,16 @@
 package com.sd.demo.umeng_push.activity
 
 import android.content.Context
+import android.content.DialogInterface
 import android.os.Bundle
 import android.util.Log
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import com.sd.demo.umeng_push.App
 import com.sd.demo.umeng_push.R
 import com.sd.lib.umeng_common.LibUmengCommon
 import com.sd.lib.umeng_push.LibUmengPush
+import com.sd.lib.utils.extend.FVersionCodeChecker
 import com.umeng.message.IUmengRegisterCallback
 import com.umeng.message.PushAgent
 import com.umeng.message.UmengMessageHandler
@@ -20,7 +24,26 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        initUmengSDK()
+
+        if (App.shouldShowAgreement(this)) {
+            showAgreementDialog()
+        } else {
+            initUmengSDK()
+        }
+    }
+
+    private fun showAgreementDialog() {
+        val dialog = AlertDialog.Builder(this)
+                .setMessage("是否同意用户协议和隐私政策")
+                .setNegativeButton("拒绝", DialogInterface.OnClickListener { dialog, which ->
+                    finish()
+                }).setPositiveButton("同意", DialogInterface.OnClickListener { dialog, which ->
+                    FVersionCodeChecker(this).check(App.USER_AGREEMENT)?.commit()
+                    initUmengSDK()
+                }).create()
+
+        dialog.setCancelable(false)
+        dialog.show()
     }
 
     private fun initUmengSDK() {
@@ -31,8 +54,7 @@ class MainActivity : AppCompatActivity() {
             this.notificationClickHandler = _notificationClickHandler
             this.messageHandler = _umengMessageHandler
         }
-
-        LibUmengPush.register(this, object : IUmengRegisterCallback {
+        LibUmengPush.registerMainProcess(this, object : IUmengRegisterCallback {
             override fun onSuccess(deviceToken: String) {
                 Log.i(TAG, "onSuccess ${deviceToken}")
             }
