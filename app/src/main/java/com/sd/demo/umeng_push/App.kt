@@ -9,18 +9,20 @@ import com.sd.lib.umeng_common.LibUmengCommon
 import com.sd.lib.umeng_push.LibUmengPush
 import com.umeng.commonsdk.UMConfigure
 import com.umeng.commonsdk.framework.UMFrUtils
+import com.umeng.message.api.UPushRegisterCallback
 
 class App : Application() {
     override fun onCreate() {
         super.onCreate()
         Log.i(MainActivity.TAG, "Application onCreate ${UMFrUtils.getCurrentProcessName(this)}")
 
+        // 日志开关
         UMConfigure.setLogEnabled(true)
-        if (shouldShowAgreement) {
-            // 还未同意《用户协议》
-            LibUmengCommon.preInit(this, "60d28f6326a57f101832de50")
-        } else {
-            LibUmengPush.registerOtherProcess(this)
+        // 预初始化
+        LibUmengCommon.preInit(this, "60d28f6326a57f101832de50")
+
+        if (isAgreementAccepted) {
+            register(this)
         }
     }
 
@@ -29,12 +31,27 @@ class App : Application() {
         MultiDex.install(this)
     }
 
-    override fun getSystemService(name: String): Any {
-        Log.i("MyApplication", "getSystemService:${name}")
-        return super.getSystemService(name)
-    }
-
     companion object {
-        val shouldShowAgreement = true
+        /** 是否已经同意协议 */
+        var isAgreementAccepted = false
+
+        /**
+         * 正式注册，要在同意协议之后才可以调用
+         */
+        fun register(context: Context) {
+            check(isAgreementAccepted) { "You should accept agreement before this" }
+            Log.i(MainActivity.TAG, "register")
+
+            LibUmengCommon.init(context, "be29515ba1416294e6103410bb1eaad3")
+            LibUmengPush.register(context, object : UPushRegisterCallback {
+                override fun onSuccess(deviceToken: String) {
+                    Log.i(MainActivity.TAG, "register onSuccess $deviceToken")
+                }
+
+                override fun onFailure(code: String, desc: String) {
+                    Log.e(MainActivity.TAG, "register onFailure $code  $desc")
+                }
+            })
+        }
     }
 }
