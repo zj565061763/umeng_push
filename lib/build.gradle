@@ -1,20 +1,21 @@
 plugins {
     id 'com.android.library'
+    id 'org.jetbrains.kotlin.android'
     id 'maven-publish'
 }
 
 def libGroupId = "com.sd.lib.umeng"
 def libArtifactId = "umeng_push"
-def libVersionCode = 20210727
 def libVersionName = "6.3.3-v04"
 
 android {
-    compileSdkVersion 30
+    compileSdk 32
     defaultConfig {
-        minSdkVersion 19
-        targetSdkVersion 30
-        versionCode libVersionCode
-        versionName libVersionName
+        minSdk 21
+        targetSdk 32
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
     }
 
     buildTypes {
@@ -27,23 +28,16 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
 }
 
 dependencies {
     //友盟公共库，必选
-    api 'com.github.zj565061763:umeng_common:9.4.0-v02'
-
-    api 'com.umeng.umsdk:push:6.3.3'
-    api 'com.umeng.umsdk:utdid:1.5.2.1'
-
-    api 'com.umeng.umsdk:alicloud-httpdns:1.3.2.3'
-    api 'com.umeng.umsdk:alicloud-utils:2.0.0'
-    api 'com.umeng.umsdk:alicloud_beacon:1.0.5'
-
-    api 'com.umeng.umsdk:agoo-accs:3.4.2.7'
-    api 'com.umeng.umsdk:agoo_aranger:1.0.6'
-    api 'com.umeng.umsdk:agoo_networksdk:3.5.8'
-    api 'com.umeng.umsdk:agoo_tnet4android:3.1.14.10'
+    api 'com.github.zj565061763:umeng_common:9.5.0-v02'
+    api 'com.umeng.umsdk:push:6.5.2'
+    api 'com.umeng.umsdk:union:1.4.1'
 }
 
 task generateSourcesJar(type: Jar) {
