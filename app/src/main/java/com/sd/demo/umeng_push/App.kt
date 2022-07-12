@@ -4,6 +4,7 @@ import android.app.Application
 import android.content.Context
 import android.util.Log
 import androidx.multidex.MultiDex
+import com.sd.demo.umeng_push.activity.MainActivity
 import com.sd.lib.umeng_common.LibUmengCommon
 import com.sd.lib.umeng_push.LibUmengPush
 import com.umeng.commonsdk.UMConfigure
@@ -12,7 +13,7 @@ import com.umeng.commonsdk.framework.UMFrUtils
 class App : Application() {
     override fun onCreate() {
         super.onCreate()
-        Log.i("MyApplication", "onCreate ${UMFrUtils.getCurrentProcessName(this)}")
+        Log.i(MainActivity.TAG, "Application onCreate ${UMFrUtils.getCurrentProcessName(this)}")
 
         UMConfigure.setLogEnabled(true)
         if (shouldShowAgreement) {

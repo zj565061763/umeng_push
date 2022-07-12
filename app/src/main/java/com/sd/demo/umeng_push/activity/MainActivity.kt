@@ -17,8 +17,6 @@ import com.umeng.message.entity.UMessage
 
 
 class MainActivity : AppCompatActivity() {
-    private val TAG = MainActivity::class.java.simpleName
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -93,5 +91,9 @@ class MainActivity : AppCompatActivity() {
         override fun dealWithCustomAction(context: Context, msg: UMessage) {
             Log.i(TAG, "dealWithCustomAction ${msg.custom}")
         }
+    }
+
+    companion object {
+        val TAG = MainActivity::class.java.simpleName
     }
 }
