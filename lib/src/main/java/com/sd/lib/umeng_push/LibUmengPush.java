@@ -6,6 +6,7 @@ import android.text.TextUtils;
 
 import com.umeng.message.IUmengRegisterCallback;
 import com.umeng.message.PushAgent;
+import com.umeng.message.api.UPushRegisterCallback;
 
 import java.util.List;
 
@@ -21,7 +22,7 @@ public class LibUmengPush {
         }
     }
 
-    public static void registerMainProcess(Context context, IUmengRegisterCallback callback) {
+    public static void registerMainProcess(Context context, UPushRegisterCallback callback) {
         final String processName = getProcessName(context);
         final String mainProcess = context.getPackageName();
         if (TextUtils.equals(processName, mainProcess)) {
