@@ -6,20 +6,18 @@ import android.util.Log
 import androidx.multidex.MultiDex
 import com.sd.lib.umeng_common.LibUmengCommon
 import com.sd.lib.umeng_push.LibUmengPush
-import com.sd.lib.utils.extend.FVersionCodeChecker
 import com.umeng.commonsdk.UMConfigure
 import com.umeng.commonsdk.framework.UMFrUtils
 
 class App : Application() {
     override fun onCreate() {
         super.onCreate()
-        val shouldShowAgreement = shouldShowAgreement(this)
-        Log.i("MyApplication", "onCreate:${UMFrUtils.getCurrentProcessName(this)} shouldShowAgreement:${shouldShowAgreement}")
+        Log.i("MyApplication", "onCreate ${UMFrUtils.getCurrentProcessName(this)}")
 
         UMConfigure.setLogEnabled(true)
         if (shouldShowAgreement) {
             // 还未同意《用户协议》
-            LibUmengCommon.preInit(this)
+            LibUmengCommon.preInit(this, "60d28f6326a57f101832de50")
         } else {
             LibUmengPush.registerOtherProcess(this)
         }
@@ -36,23 +34,6 @@ class App : Application() {
     }
 
     companion object {
-        const val USER_AGREEMENT = "user_agreement"
-
-        /**
-         * 是否需要显示用户协议
-         */
-        fun shouldShowAgreement(context: Context): Boolean {
-            val result = FVersionCodeChecker(context).check(USER_AGREEMENT)
-                    ?: return false
-
-            return result.isUpgraded && result.oldVersion == 0L
-        }
-
-        /**
-         * 接受用户协议
-         */
-        fun acceptAgreement(context: Context) {
-            FVersionCodeChecker(context).check(App.USER_AGREEMENT)?.commit()
-        }
+        val shouldShowAgreement = true
     }
 }

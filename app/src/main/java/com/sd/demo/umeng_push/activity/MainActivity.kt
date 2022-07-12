@@ -1,7 +1,6 @@
 package com.sd.demo.umeng_push.activity
 
 import android.content.Context
-import android.content.DialogInterface
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AlertDialog
@@ -10,10 +9,10 @@ import com.sd.demo.umeng_push.App
 import com.sd.demo.umeng_push.R
 import com.sd.lib.umeng_common.LibUmengCommon
 import com.sd.lib.umeng_push.LibUmengPush
-import com.umeng.message.IUmengRegisterCallback
 import com.umeng.message.PushAgent
 import com.umeng.message.UmengMessageHandler
 import com.umeng.message.UmengNotificationClickHandler
+import com.umeng.message.api.UPushRegisterCallback
 import com.umeng.message.entity.UMessage
 
 
@@ -24,7 +23,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        if (App.shouldShowAgreement(this)) {
+        if (App.shouldShowAgreement) {
             showAgreementDialog()
         } else {
             initUmengSDK()
@@ -33,33 +32,32 @@ class MainActivity : AppCompatActivity() {
 
     private fun showAgreementDialog() {
         val dialog = AlertDialog.Builder(this)
-                .setMessage("是否同意用户协议和隐私政策")
-                .setNegativeButton("拒绝", DialogInterface.OnClickListener { dialog, which ->
-                    finish()
-                }).setPositiveButton("同意", DialogInterface.OnClickListener { dialog, which ->
-                    App.acceptAgreement(this)
-                    initUmengSDK()
-                }).create()
+            .setMessage("是否同意用户协议和隐私政策")
+            .setNegativeButton("拒绝") { _, _ ->
+                finish()
+            }.setPositiveButton("同意") { _, _ ->
+                initUmengSDK()
+            }.create()
 
         dialog.setCancelable(false)
         dialog.show()
     }
 
     private fun initUmengSDK() {
-        LibUmengCommon.init(this)
+        LibUmengCommon.init(this, "be29515ba1416294e6103410bb1eaad3")
 
-        val pushAgent = PushAgent.getInstance(this)
-        pushAgent.apply {
+        PushAgent.getInstance(this).apply {
             this.notificationClickHandler = _notificationClickHandler
             this.messageHandler = _umengMessageHandler
         }
-        LibUmengPush.registerMainProcess(this, object : IUmengRegisterCallback {
+
+        LibUmengPush.registerMainProcess(this, object : UPushRegisterCallback {
             override fun onSuccess(deviceToken: String) {
-                Log.i(TAG, "onSuccess ${deviceToken}")
+                Log.i(TAG, "onSuccess $deviceToken")
             }
 
             override fun onFailure(code: String, desc: String) {
-                Log.e(TAG, "onFailure ${code}  ${desc}")
+                Log.e(TAG, "onFailure $code  $desc")
             }
         })
     }
