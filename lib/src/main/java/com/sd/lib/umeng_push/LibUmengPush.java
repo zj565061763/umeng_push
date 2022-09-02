@@ -6,7 +6,10 @@ import com.umeng.commonsdk.utils.UMUtils;
 import com.umeng.message.PushAgent;
 import com.umeng.message.api.UPushRegisterCallback;
 
-public final class LibUmengPush {
+public class LibUmengPush {
+    private LibUmengPush() {
+    }
+
     /**
      * 注册
      */
