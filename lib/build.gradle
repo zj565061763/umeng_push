@@ -30,9 +30,8 @@ android {
 }
 
 dependencies {
-    api 'com.github.zj565061763:umeng_common:9.5.0-v02'
-    api 'com.umeng.umsdk:push:6.5.2'
-    api 'com.umeng.umsdk:union:1.4.1'
+    api 'com.github.zj565061763:umeng_common:9.5.2-v01'
+    api 'com.umeng.umsdk:push:6.5.4'
 }
 
 task generateSourcesJar(type: Jar) {
