@@ -22,6 +22,27 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <!-- 子进程自启动相关 -->
+        <service
+            android:name="com.taobao.accs.internal.AccsJobService"
+            tools:node="remove" />
+
+        <receiver
+            android:name="com.taobao.accs.ServiceReceiver"
+            tools:node="remove" />
+
+        <receiver
+            android:name="com.taobao.accs.EventReceiver"
+            android:exported="true"
+            android:process=":channel">
+            <intent-filter>
+                <action
+                    android:name="android.intent.action.USER_PRESENT"
+                    tools:node="remove" />
+            </intent-filter>
+        </receiver>
+
     </application>
 
 </manifest>
