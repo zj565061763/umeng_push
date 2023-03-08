@@ -3,9 +3,9 @@ package com.sd.demo.umeng.push
 import android.app.Application
 import android.content.Context
 import com.sd.lib.umeng.common.LibUmengCommon
-import com.sd.lib.umeng.push.LibUmengPush
 import com.umeng.commonsdk.UMConfigure
 import com.umeng.commonsdk.framework.UMFrUtils
+import com.umeng.message.PushAgent
 import com.umeng.message.api.UPushRegisterCallback
 
 class App : Application() {
@@ -35,7 +35,7 @@ class App : Application() {
             logMsg { "register" }
 
             LibUmengCommon.init("be29515ba1416294e6103410bb1eaad3")
-            LibUmengPush.register(context, object : UPushRegisterCallback {
+            PushAgent.getInstance(context).register(object : UPushRegisterCallback {
                 override fun onSuccess(deviceToken: String) {
                     logMsg { "register onSuccess $deviceToken" }
                 }
