@@ -5,16 +5,16 @@ pluginManagement {
         mavenCentral()
     }
 }
+
 dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
         google()
         mavenCentral()
-        jcenter()
-        maven { url 'https://jitpack.io' }
+        maven("https://jitpack.io")
     }
 }
 
 rootProject.name = "umeng_push"
-include ':app'
-include ':lib'
+include(":app")
+include(":lib")
